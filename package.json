@@ -1,0 +1,44 @@
+{
+  "name": "waterline-restful-resource",
+  "version": "0.0.1",
+  "description": "waterline-restful-resource adapter for Sails / Waterline",
+  "main": "lib/adapter.js",
+  "scripts": {
+    "test": "node test/integration/runner -R spec -b"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kmcgath/waterline-restful-resource.git"
+  },
+  "keywords": [
+    "rest",
+    "sails-restful-resource",
+    "adapter",
+    "sails",
+    "waterline",
+    "sails.js",
+    "plugin"
+  ],
+  "author": "kmcgrath",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "dependencies": {
+    "async": "^0.8.0",
+    "lodash": "^2.4.1",
+    "restify": "^2.7.0",
+    "underscore.string": "^2.3.3"
+  },
+  "devDependencies": {
+    "waterline-adapter-tests": "~0.10.0",
+    "mocha": "*",
+    "captains-log": "~0.11.0"
+  },
+  "waterlineAdapter": {
+    "type": "sails-restful-resource",
+    "interfaces": [
+      "semantic",
+      "queryable"
+    ],
+    "waterlineVersion": "~0.10.0"
+  }
+}
