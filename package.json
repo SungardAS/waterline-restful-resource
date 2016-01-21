@@ -20,23 +20,23 @@
     "plugin"
   ],
   "author": {
-    "Kevin McGrath",
-    "kevin.mcgrath@sungardas.com"
+    "name": "Kevin McGrath",
+    "email": "kevin.mcgrath@sungardas.com"
   },
   "license": "Apache-2.0",
   "readmeFilename": "README.md",
   "dependencies": {
-    "async": "^0.8.0",
-    "lodash": "^2.4.1",
-    "restify": "^2.7.0",
-    "underscore.string": "^2.3.3"
+    "async": "^1.5.2",
+    "lodash": "^4.0.0",
+    "restify": "^4.0.3",
+    "underscore.string": "^3.2.3"
   },
   "devDependencies": {
-    "captains-log": "~0.11.0",
+    "captains-log": "*",
     "mocha": "*",
-    "nock": "^5.2.1",
-    "waterline": "^0.10.30",
-    "waterline-adapter-tests": "~0.10.0"
+    "nock": "*",
+    "waterline": "*",
+    "waterline-adapter-tests": "*"
   },
   "waterlineAdapter": {
     "type": "sails-restful-resource",
