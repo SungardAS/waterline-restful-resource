@@ -29,9 +29,11 @@
     "underscore.string": "^2.3.3"
   },
   "devDependencies": {
-    "waterline-adapter-tests": "~0.10.0",
+    "captains-log": "~0.11.0",
     "mocha": "*",
-    "captains-log": "~0.11.0"
+    "nock": "^5.2.1",
+    "waterline": "^0.10.30",
+    "waterline-adapter-tests": "~0.10.0"
   },
   "waterlineAdapter": {
     "type": "sails-restful-resource",
