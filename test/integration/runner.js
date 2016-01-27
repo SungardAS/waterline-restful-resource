@@ -1,5 +1,3 @@
-/* @annotation:tour runner */
-
 /**
  * Run integration tests
  *
@@ -10,22 +8,48 @@
  * are tested. (e.g. `queryable`, `semantic`, etc.)
  */
 
+
 /**
  * Module dependencies
  */
 
 var util = require('util');
-var utils = require('waterline-adapter-tests/lib/utils');
 var mocha = require('mocha');
-var log = new (require('captains-log'))();
+var log = require('captains-log')();
 var TestRunner = require('waterline-adapter-tests');
 var Adapter = require('../../lib/adapter');
-var Path = require('path');
-var _ = require('lodash');
+var nock = require('nock');
+var fs = require('fs');
+
+require('../interfaces/semantic/support/nock');
+
+//var appendLogToFile = function(content) {
+  //fs.appendFile('record.txt', content);
+//}
+//nock.recorder.rec({
+  //logging: appendLogToFile,
+  //use_separator: false
+//});
+
 
 // Grab targeted interfaces from this adapter's `package.json` file:
-var package = {};
-var interfaces = ['queryable'];
+var package = {},
+  interfaces = [],
+  features = [];
+try {
+  package = require('../../package.json');
+  interfaces = package.waterlineAdapter.interfaces;
+  features = package.waterlineAdapter.features;
+} catch (e) {
+  throw new Error(
+    '\n' +
+    'Could not read supported interfaces from `waterlineAdapter.interfaces`' + '\n' +
+    'in this adapter\'s `package.json` file ::' + '\n' +
+    util.inspect(e)
+  );
+}
+
+
 
 log.info('Testing `' + package.name + '`, a Sails/Waterline adapter.');
 log.info('Running `waterline-adapter-tests` against ' + interfaces.length + ' interfaces...');
@@ -35,53 +59,58 @@ log('Latest draft of Waterline adapter interface spec:');
 log('http://links.sailsjs.org/docs/plugins/adapters/interfaces');
 console.log();
 
-// Attach config to adapter
-// this.adapter.config = this.config;
-global.Connections = {
-  'test': {
+
+/**
+ * Integration Test Runner
+ *
+ * Uses the `waterline-adapter-tests` module to
+ * run mocha tests against the specified interfaces
+ * of the currently-implemented Waterline adapter API.
+ */
+new TestRunner({
+
+  // Mocha opts
+  mocha: {
+    bail: true
+  },
+
+  // Load the adapter module.
+  adapter: Adapter,
+
+  // Default connection config to use.
+  config: {
     url: {
       protocol: 'http',
       host: 'nock.me',
       pathname: ''
     },
     schema: false
-  }
-};
+  },
 
-global.Connections.test.adapter = 'wl_tests';
+  // The set of adapter interfaces to test against.
+  // (grabbed these from this adapter's package.json file above)
+  interfaces: interfaces,
+  
+  // The set of adapter features to test against.
+  // (grabbed these from this adapter's package.json file above)
+  features: features,
 
-// Globalize Adapter
-global.Adapter = Adapter;
-
-// Build an array of files to test
-var filter = '\\.(' + ['js'].join('|') + ')$';
-
-var files = [];
-
-interfaces.forEach(function(interface) {
-  var interfacePath = Path.resolve(__dirname,'../interfaces/' + interface);
-  files = files.concat(utils.fileLookup(interfacePath, filter, true));
+  // Most databases implement 'semantic' and 'queryable'.
+  //
+  // As of Sails/Waterline v0.10, the 'associations' interface
+  // is also available.  If you don't implement 'associations',
+  // it will be polyfilled for you by Waterline core.  The core
+  // implementation will always be used for cross-adapter / cross-connection
+  // joins.
+  //
+  // In future versions of Sails/Waterline, 'queryable' may be also
+  // be polyfilled by core.
+  //
+  // These polyfilled implementations can usually be further optimized at the
+  // adapter level, since most databases provide optimizations for internal
+  // operations.
+  //
+  // Full interface reference:
+  // https://github.com/balderdashy/sails-docs/blob/master/adapter-specification.md
 });
 
-// Build a Mocha Runner
-// if you need to limit, add a grep with the test name
-// grep: "update"  
-var test = new mocha(_.merge({
-  timeout: 20000  
-}, {}));
-
-// Set Global Placeholders for Ontologies
-global.Associations = {};
-global.Semantic = {};
-global.Queryable = {};
-global.Migratable = {};
-
-// Allow Adapter to be a global without warning about a leak
-test.globals([Adapter, Connections, Associations, Semantic, Queryable]);
-test.files = files;
-
-console.time('time elapsed');
-test.run(function(err) {
-  console.timeEnd('time elapsed');
-  process.exit(err);
-});

@@ -1,0 +1,13 @@
+
+nock('http://nock.me:80', {"encodedQueryParams":true})
+  .post('/userTable', {"first_name":"Foo","favoriteFruit":"blueberry","status":false,"createdAt":"2016-01-27T00:44:47.018Z","updatedAt":"2016-01-27T00:44:47.018Z"})
+  .reply(502, "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n<HTML><HEAD><META HTTP-EQUIV=\"Content-Type\" CONTENT=\"text/html; charset=iso-8859-1\">\n<TITLE>ERROR: The requested URL could not be retrieved</TITLE>\n<STYLE type=\"text/css\"><!--BODY{background-color:#ffffff;font-family:verdana,sans-serif}PRE{font-family:sans-serif}--></STYLE>\n</HEAD><BODY>\n<H1>ERROR</H1>\n<H2>The requested URL could not be retrieved</H2>\n<HR noshade size=\"1px\">\n<P>\nWhile trying to retrieve the URL:\n<A HREF=\"http://nock.me/userTable\">http://nock.me/userTable</A>\n<P>\nThe following error was encountered:\n<UL>\n<LI>\n<STRONG>\nRead Error\n</STRONG>\n</UL>\n\n<P>\nThe system returned:\n<PRE><I>    (104) Connection reset by peer</I></PRE>\n\n<P>\nAn error condition occurred while reading data from the network.  Please\nretry your request.\n<P>Your cache administrator is <A HREF=\"mailto:root\">root</A>. \n\n<BR clear=\"all\">\n<HR noshade size=\"1px\">\n<ADDRESS>\nGenerated Wed, 27 Jan 2016 00:44:25 GMT by cache_server (squid/2.6.STABLE21)\n</ADDRESS>\n</BODY></HTML>\n", { server: 'squid/2.6.STABLE21',
+  date: 'Wed, 27 Jan 2016 00:44:25 GMT',
+  'content-type': 'text/html',
+  'content-length': '1066',
+  expires: 'Wed, 27 Jan 2016 00:44:25 GMT',
+  'x-squid-error': 'ERR_READ_ERROR 104',
+  'x-cache': 'MISS from cache_server',
+  'x-cache-lookup': 'MISS from cache_server:3128',
+  via: '1.0 cache_server:3128 (squid/2.6.STABLE21)',
+  connection: 'close' });
