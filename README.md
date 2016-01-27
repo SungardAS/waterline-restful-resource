@@ -1,6 +1,18 @@
-![image_squidhome@2x.png](http://i.imgur.com/RIvu9.png)
-
 # waterline-sails-restful-resource
+
+[![NPM](https://nodei.co/npm/waterline-restful-resource.png)](https://nodei.co/npm/waterline-restful-resource/)
+
+[![Build
+Status](https://travis-ci.org/SungardAS/waterline-restful-resource.svg?branch=master)](https://travis-ci.org/SungardAS/waterline-restful-resource?branch=master)
+[![Code
+Climate](https://codeclimate.com/github/SungardAS/waterline-restful-resource/badges/gpa.svg?branch=master)](https://codeclimate.com/github/SungardAS/waterline-restful-resource?branch=master)
+[![Coverage
+Status](https://coveralls.io/repos/SungardAS/waterline-restful-resource/badge.svg?branch=master)](https://coveralls.io/r/SungardAS/waterline-restful-resource?branch=master)
+[![Dependency
+Status](https://david-dm.org/SungardAS/waterline-restful-resource.svg?branch=master)](https://david-dm.org/SungardAS/waterline-restful-resource?branch=master)
+
+
+![image_squidhome@2x.png](http://i.imgur.com/RIvu9.png)
 
 Provides easy access to `sails-restful-resource` from Sails.js & Waterline.
 
